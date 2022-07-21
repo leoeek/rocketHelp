@@ -26,7 +26,6 @@ export function SignUp() {
             await auth().createUserWithEmailAndPassword(email, password)
         }
         catch (error) {
-            console.warn(error)
             setIsLoading(false)
             Alert.alert('Entrar', 'Não foi possível criar sua conta.')
         }
