@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "370408895281",
+    "project_id": "reacthelp-d88e1",
+    "storage_bucket": "reacthelp-d88e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370408895281:android:d2ef715d43fa858c16b610",
+        "android_client_info": {
+          "package_name": "com.reacthelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370408895281-kjkkqnkfl2dpk0g7m66dnoqq09hb0s8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz_5DqUjIIs596ZnIa3SN9DtCOoeTWTJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370408895281-kjkkqnkfl2dpk0g7m66dnoqq09hb0s8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
