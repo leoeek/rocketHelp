@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HStack, IconButton, VStack, useTheme, Heading, Text, FlatList, Center } from "native-base";
 import { ChatTeardropText, SignOut } from "phosphor-react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -12,9 +12,11 @@ import { Order, OrderProps } from "../components/Order";
 import { Alert } from "react-native";
 import { dateFormat } from "../utils/firestoreDateFormat";
 import { Loading } from "../components/Loading";
+import GlobalContext from "../context/Context";
 
 export function Home() {
     const { colors } = useTheme()
+    const { user } = useContext(GlobalContext)
 
     const [isLoading, setIsLoading] = useState(true)
     const [statusSelected, setStatusSelected] = useState<'open' | 'closed'>('open');
@@ -42,6 +44,7 @@ export function Home() {
         const subscriber = firestore()
             .collection('orders')
             .where('status', '==', statusSelected)
+            .where('user_id', '==', user.uid)
             .onSnapshot(snapshot => {
                 const data = snapshot.docs.map(doc => {
                     const { patrimony, description, status, created_at } = doc.data()

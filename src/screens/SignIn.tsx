@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { VStack, Heading, Icon, useTheme, Text } from "native-base";
-import { Envelope, Key } from "phosphor-react-native";
+import { VStack, Heading, Icon, useTheme, Text, Button as ButtonNativeBase, Box } from "native-base";
+import { Envelope, Eye, EyeClosed, Key } from "phosphor-react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Logo from '../assets/logo_primary.svg';
@@ -17,6 +17,7 @@ export function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const navigation = useNavigation()
 
@@ -45,6 +46,14 @@ export function SignIn() {
         navigation.navigate('signup')
     }
 
+    async function handleShowPassword() {
+        setIsPasswordVisible(oldValue => !oldValue)
+    }
+
+    function handleRecuverPassword() {
+        navigation.navigate('recuverpassword')
+    }
+
     return (
         <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
             <Logo />
@@ -67,9 +76,21 @@ export function SignIn() {
                 placeholder="Senha"                 
                 marginBottom={4} 
                 InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4}  />} 
-                secureTextEntry
+                secureTextEntry={!isPasswordVisible}
                 mb={8}
                 onChangeText={setPassword}
+                InputRightElement={
+                    <ButtonNativeBase 
+                        w={10}
+                        backgroundColor="transparent"
+                        onPress={handleShowPassword}
+                    >
+                        { !isPasswordVisible 
+                            ? <Icon as={<Eye color={colors.gray[300]} />} ml={4} mr={6} />
+                            : <Icon as={<EyeClosed color={colors.gray[300]} />} ml={4} mr={6} />
+                        }
+                    </ButtonNativeBase>
+                } 
             />
 
             <Button 
@@ -78,8 +99,12 @@ export function SignIn() {
                 onPress={handleSignIn}
             />
 
-            <Text alignItems="center" color={colors.white} fontWeight="500" mt={5} onPress={handleSingUp}>
-                Clique aqui para criar sua conta
+            <Text color={colors.white} mt={5} mb={4} fontWeight="bold" onPress={handleRecuverPassword}>Recuperar senha</Text>
+
+            <Text color={colors.white} fontStyle="italic">Ou</Text>
+            
+            <Text alignItems="center" color={colors.white} fontWeight="500" mt={4} onPress={handleSingUp}>
+                Ainda não tem conta? <Text color={colors.primary['700']}>Clique aqui para criar</Text>
             </Text>
         </VStack>
     )

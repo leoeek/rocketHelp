@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Heading, Text, useTheme } from "native-base";
+import { Heading, Text, useTheme, Button as ButtonNativeBase } from "native-base";
 import auth from "@react-native-firebase/auth"
 import { Alert } from "react-native"
 import { Icon, VStack } from "native-base"
@@ -7,7 +7,7 @@ import { Icon, VStack } from "native-base"
 import Logo from '../assets/logo_primary.svg';
 
 import { Input } from "../components/Input"
-import { Envelope, Key } from "phosphor-react-native"
+import { Envelope, Eye, EyeClosed, Key } from "phosphor-react-native"
 import { Button } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,6 +16,7 @@ export function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     
     const navigation = useNavigation()
 
@@ -35,6 +36,10 @@ export function SignUp() {
         navigation.goBack()
     }
 
+    async function handleShowPassword() {
+        setIsPasswordVisible(oldValue => !oldValue)
+    }
+
     return (
         <VStack flex={1} alignItems="center" bg="gray.600" px={8} pt={24}>
             <Logo />
@@ -50,17 +55,29 @@ export function SignUp() {
                 placeholder="E-mail" 
                 keyboardType="email-address"
                 marginBottom={4} 
-                InputLeftElement={<Icon as={<Envelope color={colors.gray[300]} />} ml={4}  />} 
+                InputLeftElement={<Icon as={<Envelope color={colors.gray[300]} />} ml={4} />} 
                 onChangeText={setEmail}
             />
 
             <Input 
                 placeholder="Senha" 
                 marginBottom={4} 
-                InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4}  />} 
-                secureTextEntry
+                InputLeftElement={<Icon as={<Key color={colors.gray[300]} />} ml={4} />}                 
+                secureTextEntry={!isPasswordVisible}
                 mb={8}
                 onChangeText={setPassword}
+                InputRightElement={
+                    <ButtonNativeBase 
+                        w={10}
+                        backgroundColor="transparent"
+                        onPress={handleShowPassword}
+                    >
+                        { !isPasswordVisible 
+                            ? <Icon as={<Eye color={colors.gray[300]} />} ml={4} mr={6} />
+                            : <Icon as={<EyeClosed color={colors.gray[300]} />} ml={4} mr={6} />
+                        }
+                    </ButtonNativeBase>
+                } 
             />
 
             <Button 

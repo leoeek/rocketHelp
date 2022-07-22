@@ -3,12 +3,15 @@ import { VStack } from 'native-base';
 import { Header } from '../components/Header';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
+import GlobalContext from '../context/Context';
 
 export function Register() {
+  const { user } = useContext(GlobalContext)
+
   const [isLoading, setIsLoading] = useState(false)
   const [patrimony, setPatrimony] = useState('')
   const [description, setDescription] = useState('')
@@ -17,7 +20,6 @@ export function Register() {
 
   function handleNewOrderRegister() {
     if (!patrimony || !description) {
-      console.log('teste', patrimony, description)
       return Alert.alert('Registrar', 'Preencha todos os campos.')
     }
 
@@ -27,7 +29,8 @@ export function Register() {
         patrimony,
         description,
         status: 'open',
-        created_at: firestore.FieldValue.serverTimestamp()
+        created_at: firestore.FieldValue.serverTimestamp(),
+        user_id: user.uid
       })
       .then(() => {
         Alert.alert('Solicitações', 'Solicitação registrada com sucesso.')        
