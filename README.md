@@ -16,12 +16,12 @@ expo run:android
 ```
 
 ## Tecnologias
-React Native
-TypeScript
-Expo
-Native Base
-Phospor
-Firestore
+- React Native
+- TypeScript
+- Expo
+- Native Base
+- Phospor
+- Firestore
 
 ## Adicionais
 - Além do proposto, criei uma recuperação de senha (configurável no firebase).
